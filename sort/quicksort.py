@@ -48,6 +48,7 @@ def quicksort(array, start, end):
 def driver():
     data = [1, 5, 2, 4]
 
+    print("Before sorting:")
     print(data)
 
     quicksort(data, 0, len(data)-1)
