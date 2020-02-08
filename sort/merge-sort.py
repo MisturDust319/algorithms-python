@@ -36,7 +36,6 @@ def merge(array, start, mid, end):
     while i <= mid:
         temp[k] = array[i]
         i += 1
-        k += 1
     # then subarray 2
     while j <= end:
         temp[k] = array[j]
@@ -48,12 +47,12 @@ def merge(array, start, mid, end):
         # adjust the index for temp, as it has a different start
         array[i] = temp[i - start]
 
-
 def sort(array, start, end):
     if start < end:
         # find the midpoint of the input array
         mid = (start + end) // 2
 
+        # merge sort only works if the arrays you are merging are both sorted
         sort(array, start, mid)
         sort(array, mid+1, end)
         merge(array, start, mid, end)
