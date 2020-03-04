@@ -38,7 +38,7 @@ class GraphAdjacencyList:
 
     # add a new edge
     def addVertex(self, u):
-        self.graph[u] = []
+        self.graph.append()
 
     def addEdge(self, u, v):
         self.graph[u].append(v)
