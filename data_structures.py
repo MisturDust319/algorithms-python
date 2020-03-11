@@ -1,5 +1,6 @@
 import collections
 
+
 # Binary tree code borrowed from: https://www.tutorialspoint.com/python_data_structure/python_binary_tree.htm
 class BinaryTreeNode:
     def __init__(self, data):
@@ -28,17 +29,43 @@ class BinaryTreeNode:
 # borrowed from https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 # this storage method takes O(|V|+|E|) space, for a max of O(V^2)
 # adding a vertex is constant time
-# computing queries take more time O(V)
-
+# searching for an edge takes O(n)
 class GraphAdjacencyList:
 
     def __init__(self):
         # dict to store graph
-        self.graph = collections.defaultdict(list)
+        self.adjacencies = collections.defaultdict(list)
 
     # add a new edge
     def addVertex(self, u):
-        self.graph.append()
+        self.adjacencies[u].append()
 
     def addEdge(self, u, v):
-        self.graph[u].append(v)
+        self.adjacencies[u].append(v)
+
+# this varient of the adjacency set uses dict hashes instead of lists
+# this makes searching for an edge an O(1) operation
+# while maintaining a minimum size for the adjacency list
+# this works for either weighted graphs or
+class GraphAdjacencySet:
+
+    def __init__(self, v = 0):
+        # create an adjacency set populated by v sets
+        self.adjacencies = collections.defaultdict(dict)
+
+    def __len__(self):
+        return sum(len(adjacencies) for adjacencies in self.adjacencies)
+
+    # add a new vertex v
+    def addVertex(self, v):
+        self.adjacencies[v] = {}
+
+    # add an edge between u and v
+    def addEdge(self, u, v, weight = 1):
+        self.adjacencies[u][v] = weight
+
+    def searchEdge(self, u, v):
+        if v in self.adjacencies[u]:
+            return True
+        else:
+            return False

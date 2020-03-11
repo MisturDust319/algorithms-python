@@ -5,12 +5,12 @@
 # we assume all vertices are available from the staring point
 # and use an adjacency list to model a graph
 
-from data_structures import GraphAdjacencyList
+from data_structures import GraphAdjacencyList as Graph
 
 # borrowed from https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
 def dfs(graph, start):
     # mark all nodes as not visited
-    graph = graph.graph
+    graph = graph.adjacencies
     visited = [False] * (len(graph))
 
     # this utility function conducts the recursive search
@@ -28,7 +28,7 @@ def dfs(graph, start):
 
     search(start)
 def driver():
-    graph = GraphAdjacencyList()
+    graph = Graph()
     graph.addEdge(0, 1)
     graph.addEdge(0, 2)
     graph.addEdge(1, 2)
