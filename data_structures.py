@@ -52,13 +52,17 @@ class GraphAdjacencySet:
     def __init__(self, v = 0):
         # create an adjacency set populated by v sets
         self.adjacencies = collections.defaultdict(dict)
+        self.cardinality = v
 
     def __len__(self):
-        return sum(len(adjacencies) for adjacencies in self.adjacencies)
+        return self.cardinality
 
     # add a new vertex v
     def addVertex(self, v):
+        # add a new hash to the adjacency hash
         self.adjacencies[v] = {}
+        # increase the cardinality
+        self.cardinality += 1
 
     # add an edge between u and v
     def addEdge(self, u, v, weight = 1):
