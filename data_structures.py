@@ -73,3 +73,37 @@ class GraphAdjacencySet:
             return True
         else:
             return False
+
+    def dfs(self, **kwargs):
+        post_order_operation = kwargs.get("post_order_operation") if kwargs.get("post_order_operation") else None
+        if post_order_operation is None:
+            pre_order_operation = kwargs["pre_order_operation"] if kwargs.get("pre_order_operation") else lambda v: print(v)
+        else:
+            pre_order_operation = None
+
+        # make the adjacency map easily available
+        adjacencies = self.adjacencies
+        # create a list of visited nodes
+        visited = [False] * len(self)
+
+        def search(u):
+            # mark the current node as visited
+            visited[u] = True
+
+            # perform a pre-order operation if defined
+            # this is also the default operation position, which is to print the visited nodes
+            if pre_order_operation:
+                pre_order_operation(u, visited)
+
+            # recursively visit adjacent nodes
+            for v in adjacencies[u]:
+                if not visited[v]:
+                    search(v)
+
+            # perform a post-order operation if defined
+            if post_order_operation:
+                post_order_operation(u)
+
+        for v in range(self.cardinality):
+            if not visited[v]:
+                search(v)
