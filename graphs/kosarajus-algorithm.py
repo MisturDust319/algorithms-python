@@ -16,7 +16,7 @@ from collections import deque
 
 class KosarajusAlgorithm(Graph):
 
-    def __init__(self, v):
+    def __init__(self, v ):
         super().__init__(v)
 
     def fillOrder(self, u, visited, stack):
@@ -43,24 +43,13 @@ class KosarajusAlgorithm(Graph):
     def dfs(self, u, visited):
         # set the vertex v as visited
         visited[u] = True
-        # create a stack to represent
-        stack = [u]
 
-        # while there are still vertices to visit
-        while stack:
-            # grab the last found vertex from the top of the stack
-            v = stack.pop()
+        print(u, end=" ")
 
-            # it is possible for the same value to be pushed onto the stack more than once
-            # if it hasn't been visited, print its value
-            if visited[v] is not True:
-                print(v)
-                visited[v] = True
+        for v in self.adjacencies[u]:
+            if visited[v] is False:
+                self.dfs(v, visited)
 
-            # afterwards, push any unvisited vertices adjacent to v on the stack
-            for adjacency in self.adjacencies[v]:
-                if visited[adjacency] is True:
-                    stack.append(adjacency)
 
     # prints strongly connected components
     def print_scc(self):
