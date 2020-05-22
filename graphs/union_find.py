@@ -17,24 +17,29 @@ class DisjointSet:
     def __init__(self):
         self.tree = {}
 
-    def add(self, id):
+    def add(self):
         if id not in self.tree:
-            self.tree[id] = Node()
+            new_node = Node()
+            self.tree[new_node.id] = new_node
 
     def find(self, id):
+        """
+        Finds the root Node of Node[id]
+        :param id: 
+        The id of the node whose root you wish to find
+        :return: 
+        """
         # get the node with id
-        v = self.tree[id]
+        root = self.tree[id]
 
         # this varient of the find algorithm uses path halving
         # path halving skips every other node when finding the root, literally halving the number of steps taken
 
         # continue iterating until you reach a root, which is a node with a parent of None
-        while v.parent:
-            #
-            v.parent = v.parent.parent
-            v = v.parent
+        while root.parent is not None:
+            root = root.parent if root.parent.parent is None else root.parent.parent
 
-        return v
+        return root
 
     def union(self, u, v):
         # the union operation is used to join two components into one
@@ -77,7 +82,7 @@ def driver():
 
     # populate the set
     for v in range(6):
-        set.add(v)
+        set.add()
 
     set.union(0, 1)
     set.union(1, 2)
