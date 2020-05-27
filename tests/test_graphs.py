@@ -1,14 +1,14 @@
 import unittest
 
-import graphs.union_find
+import graphs.disjoint_set_structure
 
-class TestUnionFind(unittest.TestCase):
+class TestDisjointSet(unittest.TestCase):
     def setUp(self):
         """
         Set up a fresh disjoint set for each test
         :return:
         """
-        self.disjoint_set = graphs.union_find.DisjointSet()
+        self.disjoint_set = graphs.disjoint_set_structure.DisjointSet()
 
     def tearDown(self):
         """
