@@ -5,21 +5,18 @@
 from collections import defaultdict
 
 class Node:
-    # track the ids as a static variable
-    id = 0
-    def __init__(self):
-        self.id = Node.id
-        Node.id += 1
-        self.parent = None
+    def __init__(self, id):
+        self.id = id
+        self.parent = self
         self.rank = 0
 
 class DisjointSet:
     def __init__(self):
         self.tree = {}
 
-    def add(self):
+    def add(self, id):
         if id not in self.tree:
-            new_node = Node()
+            new_node = Node(id)
             self.tree[new_node.id] = new_node
 
     def find(self, id):
@@ -36,8 +33,9 @@ class DisjointSet:
         # path halving skips every other node when finding the root, literally halving the number of steps taken
 
         # continue iterating until you reach a root, which is a node with a parent of None
-        while root.parent is not None:
-            root = root.parent if root.parent.parent is None else root.parent.parent
+        while root.parent.id is not root.id:
+            root.parent = root.parent.parent
+            root = root.parent
 
         return root
 
