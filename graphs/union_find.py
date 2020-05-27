@@ -62,31 +62,3 @@ class DisjointSet:
         # if the two roots share the same rank, you can't just add one onto the other
         if v_root.rank == u_root.rank:
             v_root.rank += 1
-
-    # def __str__(self):
-    #     # use level order search to print the layers in the tree
-    #
-    #     output = defaultdict(list)
-    #
-    #     for id, _ in self.tree.items():
-    #         root = self.find(id)
-    #         if root:
-    #             output[root.id].append(id)
-    #
-    #     return str(output)
-
-def driver():
-    set = DisjointSet()
-
-    # populate the set
-    for v in range(6):
-        set.add()
-
-    set.union(0, 1)
-    set.union(1, 2)
-
-    # print(set)
-
-if __name__ == '__main__':
-    driver()
-
