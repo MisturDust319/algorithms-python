@@ -1,6 +1,10 @@
 import unittest
 
+# import the data structures
+import data_structures
+
 import graphs.disjoint_set_structure
+import graphs.dfs
 
 class TestDisjointSet(unittest.TestCase):
     def setUp(self):
@@ -64,6 +68,31 @@ class TestDisjointSet(unittest.TestCase):
         # when the combined nodes have the same rank, v's rank should increase
         self.assertEqual(self.disjoint_set.tree[1].rank, 1)
         self.assertEqual(self.disjoint_set.tree[0].rank, 0)
+
+class TestBFS(unittest.TestCase):
+    def setUp(self):
+        self.graph = graphs.dfs.GraphDFS()
+    def tearDown(self):
+        del self.graph
+
+    def test_bfs(self):
+        # add vertices
+        for i in range(4):
+            self.graph.addVertex(i)
+
+        # populate the graph
+        self.graph.addEdge(0, 1)
+        self.graph.addEdge(0, 2)
+        self.graph.addEdge(1, 2)
+        self.graph.addEdge(2, 0)
+        self.graph.addEdge(2, 3)
+        self.graph.addEdge(3, 3)
+
+        # this is the correct output of a BFS
+        expected_results = [2, 0, 3, 1]
+        results = self.graph.dfs(2)
+
+        self.assertCountEqual(expected_results, results)
 
 if __name__ == '__main__':
     unittest.main()
