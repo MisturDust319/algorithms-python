@@ -5,6 +5,7 @@ import data_structures
 
 import graphs.disjoint_set_structure
 import graphs.dfs
+import graphs.topological_sort
 
 class TestDisjointSet(unittest.TestCase):
     def setUp(self):
@@ -93,6 +94,27 @@ class TestBFS(unittest.TestCase):
         results = self.graph.dfs(2)
 
         self.assertCountEqual(expected_results, results)
+
+
+class TestTopologicalSort(unittest.TestCase):
+    def setUp(self):
+        self.graph = graphs.topological_sort.Graph(6)
+
+    def tearDown(self):
+        del self.graph
+
+    def test_topological_sotrt(self):
+        # build up the graph
+        self.graph.addEdge(5, 2);
+        self.graph.addEdge(5, 0);
+        self.graph.addEdge(4, 0);
+        self.graph.addEdge(4, 1);
+        self.graph.addEdge(2, 3);
+        self.graph.addEdge(3, 1);
+
+        expected_results = [5, 4, 2, 3, 1, 0]
+
+        self.assertCountEqual(expected_results, self.graph.topologicalSort())
 
 if __name__ == '__main__':
     unittest.main()
