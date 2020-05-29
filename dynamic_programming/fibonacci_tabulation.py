@@ -15,8 +15,3 @@ def fibonacci(n):
         dp[i] = dp[i-1] + dp[i-2]
 
     return dp[n]
-
-def driver():
-    print("5th fibonacci number: " + str(fibonacci(5)))
-
-driver()

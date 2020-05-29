@@ -12,8 +12,3 @@ def fibonacci(n):
             lookup[n] = f(n - 1) + f(n - 2)
             return lookup[n]
     return f(n)
-
-def driver():
-    print("5th fibonacci number: " + str(fibonacci(5)))
-
-driver()
