@@ -1,4 +1,4 @@
-# there are two major categories of dynamic programming
+# there are two major categories of dynamic_programming
 # memoization (top down) and tabulation (bottom up)
 # this example uses memoization to compute the nth term of the fibonacci sequence
 
