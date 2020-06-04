@@ -6,6 +6,7 @@ import data_structures
 import graphs.disjoint_set_structure
 import graphs.dfs
 import graphs.topological_sort
+import graphs.kruskals_algorithm
 
 class TestDisjointSet(unittest.TestCase):
     def setUp(self):
@@ -105,16 +106,52 @@ class TestTopologicalSort(unittest.TestCase):
 
     def test_topological_sotrt(self):
         # build up the graph
-        self.graph.addEdge(5, 2);
-        self.graph.addEdge(5, 0);
-        self.graph.addEdge(4, 0);
-        self.graph.addEdge(4, 1);
-        self.graph.addEdge(2, 3);
-        self.graph.addEdge(3, 1);
+        self.graph.addEdge(5, 2)
+        self.graph.addEdge(5, 0)
+        self.graph.addEdge(4, 0)
+        self.graph.addEdge(4, 1)
+        self.graph.addEdge(2, 3)
+        self.graph.addEdge(3, 1)
 
         expected_results = [5, 4, 2, 3, 1, 0]
 
         self.assertCountEqual(expected_results, self.graph.topologicalSort())
+
+class TestKruskalsAlgorithm(unittest.TestCase):
+    def setUp(self):
+        self.graph = graphs.kruskals_algorithm.KruskalsAlgorithmGraph()
+
+    def tearDown(self):
+        del self.graph
+
+    def test_getMST(self):
+        self.graph.addEdge(0, 1, 4)
+        self.graph.addEdge(0, 2, 4)
+        self.graph.addEdge(1, 2, 2)
+        self.graph.addEdge(1, 0, 4)
+        self.graph.addEdge(2, 0, 4)
+        self.graph.addEdge(2, 1, 2)
+        self.graph.addEdge(2, 3, 3)
+        self.graph.addEdge(2, 5, 2)
+        self.graph.addEdge(2, 4, 4)
+        self.graph.addEdge(3, 2, 3)
+        self.graph.addEdge(3, 4, 3)
+        self.graph.addEdge(4, 2, 4)
+        self.graph.addEdge(4, 3, 3)
+        self.graph.addEdge(5, 2, 2)
+        self.graph.addEdge(5, 4, 3)
+
+        # more than one MST can be generated from a data set
+        # however, the sum of the weights will always be the same value
+        expected_mst_sum = 14
+
+        mst = self.graph.getMST()
+        # get the sum of the weights
+        mst_weight_sum = sum([edge[2] for edge in mst])
+
+        self.assertEqual(expected_mst_sum, expected_mst_sum)
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -67,6 +67,7 @@ class GraphAdjacencySet:
     # add an edge between u and v
     def addEdge(self, u, v, weight = 1):
         self.adjacencies[u][v] = weight
+        self.cardinality += 1
 
     def searchEdge(self, u, v):
         if v in self.adjacencies[u]:
