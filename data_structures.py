@@ -52,7 +52,13 @@ class GraphAdjacencySet:
     def __init__(self, v = 0):
         # create an adjacency set populated by v sets
         self.adjacencies = collections.defaultdict(dict)
+
+        # then set the graph cardinality
         self.cardinality = v
+        # if v is provided, use it to populate the graph with v values
+        # starting at 0
+        for i in range(v):
+            self.adjacencies[i] = {}
 
     def __len__(self):
         return self.cardinality
@@ -67,7 +73,6 @@ class GraphAdjacencySet:
     # add an edge between u and v
     def addEdge(self, u, v, weight = 1):
         self.adjacencies[u][v] = weight
-        self.cardinality += 1
 
     def searchEdge(self, u, v):
         if v in self.adjacencies[u]:

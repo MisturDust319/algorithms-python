@@ -114,8 +114,9 @@ class TestTopologicalSort(unittest.TestCase):
         self.graph.addEdge(3, 1)
 
         expected_results = [5, 4, 2, 3, 1, 0]
+        sort_results = self.graph.topologicalSort()
 
-        self.assertCountEqual(expected_results, self.graph.topologicalSort())
+        self.assertCountEqual(expected_results, sort_results)
 
 class TestKruskalsAlgorithm(unittest.TestCase):
     def setUp(self):
