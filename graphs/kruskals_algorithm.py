@@ -45,49 +45,8 @@ class KruskalsAlgorithmGraph(GraphAdjacencySet):
             if u_parent.id is not v_parent.id:
                 # add the edge to the MST
                 results.append(current_edge)
-                # add this edge to the disjoint set
+                # join the edge to the same component
+                # this is used to track which vertices have already been added to the MST
                 disjoint_set.union(u, v)
 
         return results
-
-
-    # def kruskal_algo(self):
-    #     result = []
-    #     i, e = 0, 0
-    #     # i: index for current node
-    #     # e: index for found edges
-    #
-    #     # sort the graph by edge weight, ascending
-    #     self.graph = sorted(self.graph, key=lambda item: item[2])
-    #
-    #     # a list of parents
-    #     parent = []
-    #     rank = []
-    #
-    #     # populate the parent and rank nodes
-    #     # one for every vertex in the graph
-    #     for node in range(self.V):
-    #         parent.append(node)
-    #         rank.append(0)
-    #     # continue searching for edges until the MST is populated
-    #     # note that the MST will always have |G|-1 edges, where |G| is the cardinality of graph G
-    #     while e < self.V - 1:
-    #         # grab the edge and its weight from the graph
-    #         u, v, w = self.graph[i]
-    #
-    #         i = i + 1
-    #         # find the parents of u and v
-    #         x = self.find(parent, u)
-    #         y = self.find(parent, v)
-    #         # if u and v aren't in the same component
-    #         # that is, they don't share a parent...
-    #         if x != y:
-    #             # increment e
-    #             e = e + 1
-    #             # add the current node to the result
-    #             result.append([u, v, w])
-    #             # join the current edges to the same component
-    #             self.apply_union(parent, rank, x, y)
-    #         # output the results
-    #         for u, v, weight in result:
-    #             print("%d - %d: %d" % (u, v, weight))
