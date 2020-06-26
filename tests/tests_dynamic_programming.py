@@ -2,7 +2,7 @@ import unittest
 
 import dynamic_programming.fibonacci_tabulation
 import dynamic_programming.fibonacci_memoization
-import dynamic_programming.knapsack_problem_0_1_recursive
+import dynamic_programming.knapsack_problem_0_1
 import dynamic_programming.data_structures
 
 class TestFibonacciMemoization(unittest.TestCase):
@@ -23,8 +23,8 @@ class TestFibonacciTabulation(unittest.TestCase):
 
         self.assertCountEqual(first_six_values, computed_numbers)
 
-class TestKnapsackProblem01Recursive(unittest.TestCase):
-    def test_knapsack(self):
+class TestKnapsackProblem01(unittest.TestCase):
+    def test_knapsack_recursive(self):
         # create a knapsack
         knapsack = dynamic_programming.data_structures.Knapsack(50)
 
@@ -37,7 +37,51 @@ class TestKnapsackProblem01Recursive(unittest.TestCase):
 
         # the output should be this sum
         expected_result = 220
-        result = dynamic_programming.knapsack_problem_0_1_recursive.knapsack_01_recursive(knapsack, items)
+        result = dynamic_programming.knapsack_problem_0_1.knapsack_01_recursive(knapsack, items)
+
+        # check for proper output type
+        # should be int
+        self.assertIsInstance(result, int, "Output should be of type Int")
+
+        # check if the result is correct
+        self.assertEqual(result, expected_result)
+
+    def test_knapsack_recursive_memoized(self):
+        # create a knapsack
+        knapsack = dynamic_programming.data_structures.Knapsack(50)
+
+        # create an array of item/weight pairs
+        items = [
+            (60, 10),
+            (100, 20),
+            (120, 30)
+        ]
+
+        # the output should be this sum
+        expected_result = 220
+        result = dynamic_programming.knapsack_problem_0_1.knapsack_01_recursive_memoized(knapsack, items)
+
+        # check for proper output type
+        # should be int
+        self.assertIsInstance(result, int, "Output should be of type Int")
+
+        # check if the result is correct
+        self.assertEqual(result, expected_result)
+
+    def test_knapsack_bottom_up(self):
+        # create a knapsack
+        knapsack = dynamic_programming.data_structures.Knapsack(50)
+
+        # create an array of item/weight pairs
+        items = [
+            (60, 10),
+            (100, 20),
+            (120, 30)
+        ]
+
+        # the output should be this sum
+        expected_result = 220
+        result = dynamic_programming.knapsack_problem_0_1.knapsack_01_bottom_up(knapsack, items)
 
         # check for proper output type
         # should be int
