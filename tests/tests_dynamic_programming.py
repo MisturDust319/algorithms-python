@@ -89,3 +89,4 @@ class TestKnapsackProblem01(unittest.TestCase):
 
         # check if the result is correct
         self.assertEqual(result, expected_result)
+

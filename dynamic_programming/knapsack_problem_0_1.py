@@ -111,14 +111,39 @@ def knapsack_01_bottom_up(knapsack, items):
     :return:
         an int representing the maximum value you can get by filling the knapsack with your provided items
     """
-    permutations = [[0 if i == 0 else None for _ in range(knapsack.capacity+1)] for i in range(len(items)+1)]
+    # create a 2d array, max_value[n+1][W+1]
+    #   where n is the number of items
+    #   and W is the max capacity of the knapsack
+    #   note that the ranges increase each dimension by 1
+    #   n+1 makes it easier to index up to n
+    #   AND it allows us to fill the first row with 0, simplifying calculations
+    #   W+1 is done because it allows you to account for all weights, from 0 to max capacity
+    # each cell in the array represents the maximum possible value
+    #   if item i is added (or ommited) and you have a remaining capacity of w
+    #   where i is the index for the current item
+    max_value = [[0 if i == 0 else None for _ in range(knapsack.capacity+1)] for i in range(len(items)+1)]
 
     for i in range(1, len(items)+1):
         for w in range(0, knapsack.capacity+1):
+            # grab item i's components
             value, weight = items[i - 1]
-            if weight <= w:
-                permutations[i][w] = max(permutations[i-1][w], value+permutations[i-1][w-weight])
-            else:
-                permutations[i][w] = permutations[i-1][w]
 
-    return permutations[len(items)][knapsack.capacity]
+            # there are two options for how you choose the value of the current cell
+            # the first is if there is still enough room to put the current item in the backpack
+            if weight <= w:
+                # if you can fit the current item, the goal is still to find the largest value you can for the cell
+                # the first option is to omit the current item, and use the value at max_value[i-1][w]
+                #   that is the max value found when computing for the previous item with the remaining capacity of w
+                # the second option is to include the current item
+                #   this is done by adding the current value, to the maximum value computed for the previous item
+                #   but with the current weight subtracted000000000000000000000000000001
+                max_value[i][w] = max(max_value[i-1][w],
+                                      value+max_value[i-1][w-weight])
+            # the second is if the current item cannot fit in the backpack
+            else:
+                # if that's the case, the max capacity for this cell is the same
+                # as the max capacity of the backpack when you checked it's max capacity for item i-1
+                max_value[i][w] = max_value[i-1][w]
+
+    return max_value[len(items)][knapsack.capacity]
+
