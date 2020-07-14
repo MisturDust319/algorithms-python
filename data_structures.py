@@ -113,3 +113,62 @@ class GraphAdjacencySet:
         for v in range(self.cardinality):
             if not visited[v]:
                 search(v)
+
+
+class LinkedListNode:
+    def __init__(self, value):
+        self.value, self.next = value, None
+
+class LinkedList:
+    def __init__(self, iterable = None):
+        self.root = None
+        self.current = self.end = self.root
+        if iterable:
+            try:
+                # create an iterator from your iterator
+                iterator = iter(iterable)
+
+                # set the root
+                self.root = LinkedListNode(next(iterator))
+                # create an index node to help progress through the iterator
+                index_node = self.root
+
+                # while there is still new items to iterate over...
+                for next_item in iterator:
+                    #...grab the next item from the iterator
+                    # and set it as the next item in the linked list
+                    index_node.next = LinkedListNode(next_item)
+                    # while you're at it, set the newest node to be the end node
+                    self.end = index_node = index_node.next
+
+            except TypeError as error:
+                print("The passed in data is not an iterable")
+                print(error)
+
+    def add(self, item):
+        new_node = LinkedListNode(item)
+
+        # if the root hasn't been set, then this is the first item in the list
+        # so set the root to be this item
+        if self.root is None:
+            self.root = self.end = new_node
+        else:
+            # otherwise, set the new node to be the end node,
+            # and adjust the end node accordingly
+            self.end.next = new_node
+            self.end = self.end.next
+
+    def __iter__(self):
+        self.current = self.root
+        return self
+
+    def __next__(self):
+        # stop iterating when the current node is None
+        if self.current is None:
+            raise StopIteration
+        # otherwise, return the current node,
+        # and find the next item in the linked list
+        else:
+            current_value = self.current.value
+            self.current = self.current.next
+            return current_value
