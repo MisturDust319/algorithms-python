@@ -3,10 +3,32 @@ import unittest
 # import the data structures
 import data_structures
 
+import graphs.breadth_first_traversal
 import graphs.disjoint_set_structure
 import graphs.dfs
 import graphs.topological_sort
 import graphs.kruskals_algorithm
+
+class TestBreadthFirstTraversal(unittest.TestCase):
+    def test_breadth_first_traversal(self):
+        # create a graph
+        graph = data_structures.GraphAdjacencySet()
+        # populate it
+        graph.addEdge(0, 1)
+        graph.addEdge(0, 2)
+        graph.addEdge(1, 2)
+        graph.addEdge(2, 0)
+        graph.addEdge(2, 3)
+        graph.addEdge(3, 3)
+
+        # the expected output
+        expected_results = [2, 0, 3, 1]
+
+        # compute the actual results
+        results = list(graphs.breadth_first_traversal.breadth_first_traversal(graph, 2))
+
+        # compare the results
+        self.assertListEqual(results, expected_results)
 
 class TestDisjointSet(unittest.TestCase):
     def setUp(self):

@@ -72,6 +72,14 @@ class GraphAdjacencySet:
 
     # add an edge between u and v
     def addEdge(self, u, v, weight = 1):
+        # if either of these vertices aren't current in the graph,
+        # add them
+        if u not in self.adjacencies:
+            self.addVertex(u)
+        if v not in self.adjacencies:
+            self.addVertex(v)
+
+        # add the edge with the appropriate weight
         self.adjacencies[u][v] = weight
 
     def searchEdge(self, u, v):
