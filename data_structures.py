@@ -180,3 +180,34 @@ class LinkedList:
             current_value = self.current.value
             self.current = self.current.next
             return current_value
+
+
+class BinaryTreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    # object equality can be checked with the 'is' operator
+    # so you don't need to overload the equality operator
+
+# class BinarySearchTree:
+#     def __init__(self):
+#         self.root = None
+#
+#     def add(self, data):
+#         # create a new node
+#         new_node = BinaryTreeNode(data)
+#
+#         # if the tree is empty, set the root
+#         if self.root is None:
+#             self.root = new_node
+#         # otherwise, find the right place in the tree
+#         else:
+#             current_node = self.root
+#
+#             while current_node.next is not None:
+#                 # binary trees
+#                 current_val = current_node.data
+#
+#                 if
