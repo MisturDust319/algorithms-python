@@ -2,7 +2,7 @@ import unittest
 
 import data_structures
 
-import trees.level_order_traversal
+import trees.level_order_traversal_binary_tree
 
 
 class TestLevelOrderTraversal(unittest.TestCase):
@@ -21,14 +21,14 @@ class TestLevelOrderTraversal(unittest.TestCase):
 
     def test_level_order_traversal_recursive(self):
         # get the results of LOT
-        results = list(trees.level_order_traversal.level_order_traversal_recursive(self.binary_tree_root))
+        results = list(trees.level_order_traversal_binary_tree.level_order_traversal_recursive(self.binary_tree_root))
 
         # compare to expected results
         self.assertListEqual(results, self.expected_results)
 
     def test_level_order_traversal_iterative(self):
         # get the results of LOT
-        results = list(trees.level_order_traversal.level_order_traversal_iterative(self.binary_tree_root))
+        results = list(trees.level_order_traversal_binary_tree.level_order_traversal_iterative(self.binary_tree_root))
 
         # compare to expected results
         self.assertListEqual(results, self.expected_results)
