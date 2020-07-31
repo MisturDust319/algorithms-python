@@ -3,7 +3,7 @@ import unittest
 import data_structures
 
 import trees.level_order_traversal_binary_tree
-
+import trees.connect_all_siblings
 
 class TestLevelOrderTraversal(unittest.TestCase):
     def setUp(self):
@@ -32,3 +32,35 @@ class TestLevelOrderTraversal(unittest.TestCase):
 
         # compare to expected results
         self.assertListEqual(results, self.expected_results)
+
+
+class TestConnectAllSiblings(unittest.TestCase):
+    def setUp(self):
+        # create a tree
+        self.root = trees.connect_all_siblings.BinaryTreeWithSiblingNode(100)
+        self.root.left = trees.connect_all_siblings.BinaryTreeWithSiblingNode(50)
+        self.root.left.left = trees.connect_all_siblings.BinaryTreeWithSiblingNode(25)
+        self.root.left.right = trees.connect_all_siblings.BinaryTreeWithSiblingNode(75)
+        self.root.right = trees.connect_all_siblings.BinaryTreeWithSiblingNode(200)
+        self.root.right.right = trees.connect_all_siblings.BinaryTreeWithSiblingNode(300)
+        self.root.right.right.right = trees.connect_all_siblings.BinaryTreeWithSiblingNode(350)
+
+        # create a list representing the expected results
+        self.expected_results = [100, 50, 200, 25, 75, 300, 350]
+
+    def test_connect_all_siblings(self):
+        # run the function to connect sibling nodes
+        trees.connect_all_siblings.connect_all_siblings(self.root)
+
+        # to check for correctness, we will cycle through the nodes using the sibling pointer
+        current_node = self.root
+        results = []
+        while current_node is not None:
+            results.append(current_node.data)
+            current_node = current_node.sibling
+
+        self.assertListEqual(results, self.expected_results)
+
+
+
+
