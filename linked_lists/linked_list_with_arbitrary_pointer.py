@@ -7,10 +7,24 @@ class LinkedListNodeWithArbitraryPointer:
     """
     A Linked List node that also supports a pointer to an arbitrary node
     """
+    id = 0
+
     def __init__(self, data):
+        # grab a unique id
+        self.id = self.__class__.id
+        self.__class__.id += 1
+
+        # populate the data and pointers
         self.data = data
         self.next = None
         self.arbitrary = None
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        return True if self.id == other.id else False
+
 
 def deep_copy_linked_list_with_arbitrary_pointer(head):
     # if the head node is empty, return None
@@ -20,7 +34,7 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
 
     # start the process at the head node
     # an init a new head node to be returned by the function
-    current_node =  head
+    current_node = head
     # this variable will point to the head node of the linked list copy
     new_head = None
     # this variable holds the last node added to the new linked list
@@ -41,17 +55,18 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
         new_node.arbitrary = current_node.arbitrary
 
         # we need to check if we've added any values to the new list
-        # if the previous new node has a value
+        # IF the previous new node has a value
         # that means we've started the new list copy...
         if previous_new_node is not None:
-            #...and in response, you should
+            #...and in response, you should append the new node to the existing list
             previous_new_node.next = new_node
         else:
+            # otherwise, set the new node as the previous
             new_head = new_node
 
         unique_nodes[current_node] = new_node
 
-        previous_node = new_node
+        previous_new_node = new_node
         current_node = current_node.next
 
     current_node = new_head
@@ -64,3 +79,6 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
             current_node.arbitrary = new_node
 
         current_node = current_node.next
+
+    # return a head node pointing to the new linked list
+    return new_head

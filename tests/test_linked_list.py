@@ -62,7 +62,7 @@ class TestLinkedListWithArbitraryPointer(unittest.TestCase):
         self.linked_list.next.next.next.next = LinkedListNodeWithArbitraryPointer(4)
         # set up the arbitrary pointers
         self.linked_list.arbitrary = self.linked_list.next.next
-        self.linked_list.next.next = self.linked_list.next.next.next.next
+        self.linked_list.next.next.arbitrary = self.linked_list.next.next.next.next
 
     def compareLists(self, head1, head2):
         """
@@ -115,11 +115,44 @@ class TestLinkedListWithArbitraryPointer(unittest.TestCase):
 
 
 
-    def test_linked_list_with_arbitrary_pointer(self):
+    def test_return_data(self):
         # attempt to copy the list
         list_copy = deep_copy_linked_list_with_arbitrary_pointer(self.linked_list)
+        # check that the returned data is the right data type
+        self.assertIsInstance(list_copy, LinkedListNodeWithArbitraryPointer,
+                              "Test that a pointer to a new linked list is returned")
 
+    def test_equality(self):
+        # attempt to copy the list
+        list_copy = deep_copy_linked_list_with_arbitrary_pointer(self.linked_list)
         # compare the lists
         result = self.compareLists(self.linked_list, list_copy)
-
         self.assertTrue(result)
+
+    def test_inequality(self):
+        # attempt to copy the list
+        # we'll change some values to ensure a false result
+        list_copy = deep_copy_linked_list_with_arbitrary_pointer(self.linked_list)
+
+        # change the first piece of data
+        list_copy.data = 10
+
+        result = self.compareLists(self.linked_list, list_copy)
+        self.assertFalse(result)
+
+        # check that adding extra data to one list changes the result
+        # change the first piece of data back to the default
+        list_copy.data = 0
+        # add a piece of data to the end
+        self.linked_list.next.next.next.next.next = LinkedListNodeWithArbitraryPointer(19)
+
+        result = self.compareLists(self.linked_list, list_copy)
+        self.assertFalse(result)
+
+        # last, remove some data from the end of the list to see how it responds
+        self.linked_list.next.next.next.next.next = None
+        self.linked_list.next.next.next.next = None
+        # it should be false
+        result = self.compareLists(self.linked_list, list_copy)
+        self.assertFalse(result)
+
