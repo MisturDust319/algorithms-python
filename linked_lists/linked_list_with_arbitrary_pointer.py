@@ -32,8 +32,8 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
     if head is None:
         return None
 
-    # start the process at the head node
-    # an init a new head node to be returned by the function
+    # the current node is the node to be copied
+    # start at the head of the input list
     current_node = head
     # this variable will point to the head node of the linked list copy
     new_head = None
@@ -45,7 +45,6 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
 
     # in the first pass, you link the new linked list's arbitrary pointers
     # to the arbitrary pointers in the original list
-    # creating copies of the arbitrary pointers is
     while current_node is not None:
         # create a new node with a copy of the current node's data
         new_node = LinkedListNodeWithArbitraryPointer(current_node.data)
@@ -64,20 +63,29 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
             # otherwise, set the new node as the previous
             new_head = new_node
 
+        # store a copy of the new node in the dictionary
+        # note we use the current node, the original node taken from the input list
+        #   as an index
+        # this ensures we can now use the old arbitrary pointers to dereference their
+        #   corresponding new copy on our second pass
         unique_nodes[current_node] = new_node
 
+        # set the new node as the last found node added to the new list
         previous_new_node = new_node
+        # grab the next node from the old list
         current_node = current_node.next
 
+    # for the next step, we will iterate through the copy of the list
     current_node = new_head
-
-    # next copy the arbitrary pointer
+    # in the second pass, you replace the references to the arbitrary pointers in the original list
+    # with the proper copies made in the first pass
     while current_node is not None:
         if current_node.arbitrary is not None:
+            # dereference the copied node
+            # the dictionary we used used the old node as a key, and the new node as the value
             new_node = unique_nodes[current_node.arbitrary]
-
             current_node.arbitrary = new_node
-
+        # check the next node
         current_node = current_node.next
 
     # return a head node pointing to the new linked list
