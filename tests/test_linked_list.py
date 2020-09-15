@@ -155,4 +155,3 @@ class TestLinkedListWithArbitraryPointer(unittest.TestCase):
         # it should be false
         result = self.compareLists(self.linked_list, list_copy)
         self.assertFalse(result)
-

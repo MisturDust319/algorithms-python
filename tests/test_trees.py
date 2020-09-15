@@ -1,9 +1,14 @@
 import unittest
+import pytest
 
 import data_structures
+from data_structures import BinaryTreeNode
+from trees.check_if_binary_search_tree import check_if_binary_search_tree_recursive
+from trees.check_if_binary_search_tree import check_if_binary_search_tree_iterative
 
 import trees.level_order_traversal_binary_tree
 import trees.connect_all_siblings
+
 
 class TestLevelOrderTraversal(unittest.TestCase):
     def setUp(self):
@@ -62,5 +67,52 @@ class TestConnectAllSiblings(unittest.TestCase):
         self.assertListEqual(results, self.expected_results)
 
 
+# create a fixture to generate a simple binary search tree
+@pytest.fixture
+def create_binary_search_tree():
+    root = BinaryTreeNode(13)
+    current_node = root.left = BinaryTreeNode(3)
+    current_node.left = BinaryTreeNode(1)
+    current_node.right = BinaryTreeNode(4)
+    current_node.left.right = BinaryTreeNode(2)
+    current_node.right.right = BinaryTreeNode(12)
+    current_node = root.right = BinaryTreeNode(14)
+    current_node.right = BinaryTreeNode(18)
+
+    return root
 
 
+@pytest.fixture
+def create_binary_tree():
+    """
+    Create a binary tree
+    NOT a binary search tree
+    :return:
+    """
+    root = BinaryTreeNode(1000)
+    current_node = root.left = BinaryTreeNode(3)
+    current_node.left = BinaryTreeNode(1)
+    current_node.right = BinaryTreeNode(4)
+    current_node.left.right = BinaryTreeNode(2)
+    current_node.right.right = BinaryTreeNode(12)
+    current_node = root.right = BinaryTreeNode(14)
+    current_node.right = BinaryTreeNode(18)
+
+    return root
+
+
+@pytest.mark.tree
+def test_check_if_binary_search_tree_recursive_true_value(create_binary_search_tree):
+    assert check_if_binary_search_tree_recursive(create_binary_search_tree) is True
+
+@pytest.mark.tree
+def test_check_if_binary_search_tree_recursive_false_value(create_binary_tree):
+    assert check_if_binary_search_tree_recursive(create_binary_tree) is False
+
+@pytest.mark.tree
+def test_check_if_binary_search_tree_iterative_true_value(create_binary_search_tree):
+    assert check_if_binary_search_tree_iterative(create_binary_search_tree) is True
+
+@pytest.mark.tree
+def test_check_if_binary_search_tree_iterative_false_value(create_binary_tree):
+    assert check_if_binary_search_tree_iterative(create_binary_tree) is False
