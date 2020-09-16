@@ -1,5 +1,4 @@
-from data_structures import BinaryTreeNode
-
+from collections import deque
 
 def check_if_binary_search_tree_recursive(root):
     """
@@ -32,8 +31,6 @@ def check_if_binary_search_tree_recursive(root):
         return is_left_tree_search_tree and is_right_tree_search_tree
 
 
-
-
 def check_if_binary_search_tree_iterative(root):
     """
     Given a root node of a binary tree, check if the tree is a binary search tree
@@ -44,4 +41,36 @@ def check_if_binary_search_tree_iterative(root):
     True if a binary tree
     False otherwise
     """
-    pass
+    # create a queue
+    # we will perform LOT to visit all the nodes in the tree
+    queue = deque()
+    queue.append(root)
+
+    # while we still have nodes to explore...
+    while queue:
+        # pop the next node from the queue
+        current_node = queue.popleft()
+        # get the current nodes value
+        value = current_node.data
+
+        # check if there is a left child...
+        if current_node.left is not None:
+            # ...it must be lower than the current nodes value
+            if current_node.left.data > value:
+                # if so, return False
+                return False
+            # if it is, queue up that node to check later
+            queue.append(current_node.left)
+        # and repeat with the right
+        if current_node.right is not None:
+            # the right value must be greater than the current node's value
+            if current_node.right.data < value:
+                # if it isn't, return false
+                return False
+            # and append the right node to the queue if it is
+
+    # if we've explored all nodes without returning false,
+    # then all nodes are in their proper place
+    # so return true
+    return True
+
