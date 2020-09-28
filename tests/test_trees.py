@@ -101,22 +101,22 @@ def create_binary_tree():
     return root
 
 
-@pytest.mark.tree
+@pytest.mark.trees
 def test_check_if_binary_search_tree_recursive_true_value(create_binary_search_tree):
     assert check_if_binary_search_tree_recursive(create_binary_search_tree) is True
 
 
-@pytest.mark.tree
+@pytest.mark.trees
 def test_check_if_binary_search_tree_recursive_false_value(create_binary_tree):
     assert check_if_binary_search_tree_recursive(create_binary_tree) is False
 
 
-@pytest.mark.tree
+@pytest.mark.trees
 def test_check_if_binary_search_tree_iterative_true_value(create_binary_search_tree):
     assert check_if_binary_search_tree_iterative(create_binary_search_tree) is True
 
 
-@pytest.mark.tree
+@pytest.mark.trees
 def test_check_if_binary_search_tree_iterative_false_value(create_binary_tree):
     assert check_if_binary_search_tree_iterative(create_binary_tree) is False
 

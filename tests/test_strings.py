@@ -69,6 +69,7 @@ def test_string_segmentation_memoized_false(create_string_segmentation_input):
 
 
 @pytest.mark.strings
+@pytest.mark.xfail
 def test_string_segmentation_iterative_true(create_string_segmentation_input):
     # arrange: set up any variables we need
     string, words = create_string_segmentation_input
@@ -79,6 +80,7 @@ def test_string_segmentation_iterative_true(create_string_segmentation_input):
 
 
 @pytest.mark.strings
+@pytest.mark.xfail
 def test_string_segmentation_iterative_false(create_string_segmentation_input):
     # arrange: set up any variables we need
     # get basic input
