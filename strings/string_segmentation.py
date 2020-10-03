@@ -1,3 +1,5 @@
+from collections import deque
+
 def string_segmentation_recursive(string, dictionary):
     # iterate over the entirety of string
     for i in range(1, len(string)+1):
@@ -58,25 +60,41 @@ def string_segmentation_memoized(string, dictionary):
 
 
 def string_segmentation_iterative(string, dictionary):
-    pass
-    # # we use dynamic programming
-    # # create a matrix of [len(string), len(string)]
-    # # each cell in the matrix represents whether the a substring [i,i+l) is in our dictionary
-    # # where i is the current index
-    # # and l is the length of the substring we are checking
-    # # and note we won't actually fill the whole matrix, only the top right half
-    # string_length = len(string)
-    # computation_matrix = [[None] * string_length] * string_length
-    #
-    # # we must check every possible continuous substring (from cat we could have c, ca, cat, at, c, but not ct)
-    # # we do this by first by calculating all substrings of a particular length
-    # # from a single character to the entire string length
-    # for substring_length in range(string_length):
-    #     # we now step through the string, checking each substring of a certain length
-    #     for start_index in range(0, string_length - substring_length):
-    #         # get the substring
-    #         substring = string[start_index, start_index + string_length]
-    #
-    #         # if the substring is in the dictionary...
-    #         if substring in dictionary:
-    #             # then set the matrix cell at [start_index, string_length] to true
+    """
+    A solution for the string segmentation problem that uses iteration and memoization
+    borrowed from: https://iq.opengenus.org/word-break-problem/
+    """
+    n = len(string)
+    if n == 0:
+        return True
+
+    # a cache of
+    cache = [False] * (n + 1)
+    # the matched index list is a list of indices where substrings that are in the dictionary begin
+    matched_index = [-1]
+
+    # we check each possible continuous substring in string that start at the first string
+    for i in range(n):
+        matched_index_list_size = len(matched_index)
+
+        # we iterate backwards through the list of positive substring matches
+        for j in range(matched_index_list_size - 1, -1, -1):
+            # we construct our substring as [index after last found substring, i]
+            # (when no matches have been found, we just search [0,i]
+            # we force this by storing -1 as the initial value in the matched index array)
+            # when you have a match, it immediately starts search after the last found positive substring
+            # and searches to i, which helps avoid redundant calculations
+            # if this doesn't match, it retrieves the index for the second most recently found positive substring
+            # and "prepends" this to the last substring, and rechecks the dictionary
+            # this cycle of checking, prepending, then checking again will continue until we check substring[0,i]
+            # or we get a positive match, in which case we increment i and repeat the process
+            sub_string = string[matched_index[j] + 1: i + 1]
+            if sub_string in dictionary:
+                # if the current substring is true,
+                # set the index at i to be true
+                cache[i] = True
+                # and append this index to the list of positively matched indices
+                matched_index.append(i)
+                break
+
+    return cache[n - 1]
