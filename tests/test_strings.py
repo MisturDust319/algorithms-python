@@ -2,7 +2,7 @@ import pytest
 
 from strings.string_segmentation import string_segmentation_recursive
 from strings.string_segmentation import string_segmentation_memoized
-from strings.string_segmentation import string_segmentation_iterative
+from strings.string_segmentation import string_segmentation_tabulation
 
 @pytest.fixture
 def create_string_segmentation_input():
@@ -69,30 +69,28 @@ def test_string_segmentation_memoized_false(create_string_segmentation_input):
 
 
 @pytest.mark.strings
-@pytest.mark.xfail
-def test_string_segmentation_iterative_true(create_string_segmentation_input):
+def test_string_segmentation_tabulation_true(create_string_segmentation_input):
     # arrange: set up any variables we need
     string, words = create_string_segmentation_input
     # act: call your functions and perform any needed data operations
-    result = string_segmentation_iterative(string, words)
+    result = string_segmentation_tabulation(string, words)
     # assert: use an assert statement to test your results
     assert result is True
 
 
 @pytest.mark.strings
-@pytest.mark.xfail
-def test_string_segmentation_iterative_false(create_string_segmentation_input):
+def test_string_segmentation_tabulation_false(create_string_segmentation_input):
     # arrange: set up any variables we need
     # get basic input
     string, words = create_string_segmentation_input
     # for the first test, remove one piece of data from the dictionary: apple
     del words["apple"]
     # this should cause a failure
-    result = string_segmentation_iterative(string, words)
+    result = string_segmentation_tabulation(string, words)
     assert result is False
 
     # try again with after deleting a second key from the dictionary
     del words["pie"]
 
-    result = string_segmentation_iterative(string, words)
+    result = string_segmentation_tabulation(string, words)
     assert result is False

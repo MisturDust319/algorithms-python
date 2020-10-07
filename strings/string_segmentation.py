@@ -59,42 +59,48 @@ def string_segmentation_memoized(string, dictionary):
     return _compute_string_segmentation(string)
 
 
-def string_segmentation_iterative(string, dictionary):
+def string_segmentation_tabulation(string, dictionary):
     """
-    A solution for the string segmentation problem that uses iteration and memoization
+    A solution for the string segmentation problem that uses tabulation
     borrowed from: https://iq.opengenus.org/word-break-problem/
     """
     n = len(string)
     if n == 0:
         return True
 
-    # a cache of
+    # a cache equal in length to the size of our input string
+    # each value in the cache is a boolean value, and cell i represents whether a substring of of length i
+    # has been found or not
     cache = [False] * (n + 1)
     # the matched index list is a list of indices where substrings that are in the dictionary begin
-    matched_index = [-1]
+    # we also keep a list of indices
+    # each index is the index of the final character of a substring that has been matched in the dictionary
+    matched_indices = deque([-1])
 
     # we check each possible continuous substring in string that start at the first string
-    for i in range(n):
-        matched_index_list_size = len(matched_index)
-
-        # we iterate backwards through the list of positive substring matches
-        for j in range(matched_index_list_size - 1, -1, -1):
-            # we construct our substring as [index after last found substring, i]
-            # (when no matches have been found, we just search [0,i]
-            # we force this by storing -1 as the initial value in the matched index array)
-            # when you have a match, it immediately starts search after the last found positive substring
-            # and searches to i, which helps avoid redundant calculations
-            # if this doesn't match, it retrieves the index for the second most recently found positive substring
-            # and "prepends" this to the last substring, and rechecks the dictionary
-            # this cycle of checking, prepending, then checking again will continue until we check substring[0,i]
-            # or we get a positive match, in which case we increment i and repeat the process
-            sub_string = string[matched_index[j] + 1: i + 1]
+    # we process substrings by
+    for max_search_index in range(n):
+        for previously_matched_index in reversed(matched_indices):
+            # there are two ways we can construct a substring
+            # first, the most basic way is from [0,max_search_index], the largest possible substring to search
+            # this is the default behavior when no matches have been found so far
+            # or if the second method has exhausted all possible other values
+            # note we force this behavior by storing -1 as the first (and possibly only) value in matched_indices
+            # the other way we may construct a substring is from [previously_matched_index+1,max_search_index]
+            # this starts the search immediately after the last positive matching index
+            # allowing us to possibly skip checking lower indices for other matches
+            # if this new substring isn't a match, the code "prepends" previous positive matches to the substring
+            # to see if a match is made
+            # (ex. if "west" and "westwing" are in the dictionary and our string is "westwing")
+            # this is because if a match is made, we can't partially backtrack,
+            # we either keep it or swap it out for something else
+            sub_string = string[previously_matched_index + 1: max_search_index + 1]
             if sub_string in dictionary:
                 # if the current substring is true,
-                # set the index at i to be true
-                cache[i] = True
+                # set the index at max_search_index to be true
+                cache[max_search_index] = True
                 # and append this index to the list of positively matched indices
-                matched_index.append(i)
+                matched_indices.append(max_search_index)
                 break
 
     return cache[n - 1]
