@@ -3,6 +3,8 @@ import pytest
 from strings.string_segmentation import string_segmentation_recursive
 from strings.string_segmentation import string_segmentation_memoized
 from strings.string_segmentation import string_segmentation_tabulation
+from strings.substring_palindromes import _find_palindromes_in_substring
+from strings.substring_palindromes import find_substring_palindromes
 
 @pytest.fixture
 def create_string_segmentation_input():
@@ -94,3 +96,11 @@ def test_string_segmentation_tabulation_false(create_string_segmentation_input):
 
     result = string_segmentation_tabulation(string, words)
     assert result is False
+
+@pytest.mark.parametrize(
+    "palindrome,expected",
+    [("aa", 1), ("baab", 2), ("aabb", 2), ("aqzb", 0), ("abaa", 2)]
+)
+def test_substring_palindromes(palindrome, expected):
+    assert find_substring_palindromes(palindrome) == expected
+
