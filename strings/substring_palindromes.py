@@ -36,7 +36,12 @@ def find_substring_palindromes(string):
     string_length = len(string)
     count = 0
     for i in range(string_length):
+        # check for odd length palindromes
+        # like aba, ababa
+        # you don't have to count the middle char, hence why the upper and lower bounds are above and below i
         count += _find_palindromes_in_substring(string, i - 1, i + 1)
+        # check for even length palindromes
+        # like aa, abba
         count += _find_palindromes_in_substring(string, i, i + 1)
 
     return count
