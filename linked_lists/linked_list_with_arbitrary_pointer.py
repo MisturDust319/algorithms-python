@@ -57,7 +57,7 @@ def deep_copy_linked_list_with_arbitrary_pointer(head):
         # IF the previous new node has a value
         # that means we've started the new list copy...
         if previous_new_node is not None:
-            #...and in response, you should append the new node to the existing list
+            # ...and in response, you should append the new node to the existing list
             previous_new_node.next = new_node
         else:
             # otherwise, set the new node as the previous

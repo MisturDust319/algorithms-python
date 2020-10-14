@@ -33,7 +33,7 @@ def linked_list_sum(list_a, list_b):
         # if the sum is greater than ten, you will have carryover
         if new_val >= 10:
             # the carry is the int division of the value divided by 10
-            carry = new_val//10
+            carry = new_val // 10
             # the new value is the remainder of dividing the new value by 10
             new_val = new_val % 10
         else:

@@ -17,7 +17,7 @@ def _find_palindromes_in_substring(string, lower_bound, upper_bound):
     # around the midpoint of the string, and it iteratively increases the upper and lower bounds
     # until it fails to match a palindrome
     while (lower_bound >= 0
-            and upper_bound < len(string)):
+           and upper_bound < len(string)):
         # check that the upper and lower bound match
         if string[lower_bound] != string[upper_bound]:
             # if they don't, stop checking for more palindromes
@@ -30,6 +30,7 @@ def _find_palindromes_in_substring(string, lower_bound, upper_bound):
         upper_bound += 1
 
     return count
+
 
 def find_substring_palindromes(string):
     # get the length of string

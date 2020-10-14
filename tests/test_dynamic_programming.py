@@ -1,9 +1,11 @@
+import pytest
 import unittest
 
 import dynamic_programming.fibonacci_tabulation
 import dynamic_programming.fibonacci_memoization
 import dynamic_programming.knapsack_problem_0_1
 import dynamic_programming.data_structures
+from dynamic_programming.kadanes_algorithm import kadanes_algorithm
 
 class TestFibonacciMemoization(unittest.TestCase):
     def test_fibonacci(self):
@@ -90,3 +92,17 @@ class TestKnapsackProblem01(unittest.TestCase):
         # check if the result is correct
         self.assertEqual(result, expected_result)
 
+@pytest.mark.dynamic_programming
+@pytest.mark.lists
+def test_kadanes_algorithm():
+    test_data = [0]
+
+    assert type(kadanes_algorithm(test_data)) is int
+
+@pytest.mark.dynamic_programming
+@pytest.mark.lists
+def test_kadanes_algorithm_output_type():
+    test_data = [-4, 2, -5, 1, 2, 3, 6, -5, 1]
+    expected_result = 12
+
+    assert kadanes_algorithm(test_data) == expected_result
