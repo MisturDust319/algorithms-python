@@ -21,8 +21,9 @@ class TestLevelOrderTraversal(unittest.TestCase):
 
         self.binary_tree_root = root
 
-        # the results of a level order traversal should be the numbers 1 through 5, in order
-        self.expected_results = list(range(1, 6))
+        # the results of a level order traversal
+        # should be the numbers 1 through 5, in order
+        self.expected_results = list(range(1, 5+1))
 
     def test_level_order_traversal_recursive(self):
         # get the results of LOT
@@ -57,7 +58,8 @@ class TestConnectAllSiblings(unittest.TestCase):
         # run the function to connect sibling nodes
         trees.connect_all_siblings.connect_all_siblings(self.root)
 
-        # to check for correctness, we will cycle through the nodes using the sibling pointer
+        # to check for correctness,
+        # we will cycle through the nodes using the sibling pointer
         current_node = self.root
         results = []
         while current_node is not None:
@@ -88,6 +90,7 @@ def create_binary_tree():
     Create a binary tree
     NOT a binary search tree
     :return:
+    root node of a new binary tree
     """
     root = BinaryTreeNode(1000)
     current_node = root.left = BinaryTreeNode(3)

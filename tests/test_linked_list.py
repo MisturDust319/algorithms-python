@@ -1,10 +1,9 @@
 import unittest
 
-# import the data structures
 import data_structures
-
 import linked_lists.linked_list_sum
 from linked_lists.linked_list_with_arbitrary_pointer import LinkedListNodeWithArbitraryPointer, deep_copy_linked_list_with_arbitrary_pointer
+
 
 class TestLinkedListSum(unittest.TestCase):
     def test_linked_list_sum(self):
@@ -17,7 +16,6 @@ class TestLinkedListSum(unittest.TestCase):
         # the result will be stored as arrays to simplify comparisons
         # value: 10138
         expected_result = [8, 3, 1, 0, 1]
-
 
         results = list(iter(linked_lists.linked_list_sum.linked_list_sum(list1, list2)))
 
@@ -48,6 +46,7 @@ class TestLinkedListSum(unittest.TestCase):
         results = list(iter(linked_lists.linked_list_sum.linked_list_sum(list1, list2)))
 
         self.assertListEqual(results, expected_result)
+
 
 class TestLinkedListWithArbitraryPointer(unittest.TestCase):
     def setUp(self):
@@ -112,8 +111,6 @@ class TestLinkedListWithArbitraryPointer(unittest.TestCase):
 
         # if no discrepancy has been found, return true
         return True
-
-
 
     def test_return_data(self):
         # attempt to copy the list

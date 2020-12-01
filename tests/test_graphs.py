@@ -1,13 +1,12 @@
 import unittest
 
-# import the data structures
 import data_structures
-
 import graphs.breadth_first_traversal
 import graphs.disjoint_set_structure
 import graphs.dfs
 import graphs.topological_sort
 import graphs.kruskals_algorithm
+
 
 class TestBreadthFirstTraversal(unittest.TestCase):
     def test_breadth_first_traversal(self):

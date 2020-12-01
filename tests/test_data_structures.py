@@ -1,11 +1,8 @@
-# test the data structures for this repository
-
 import unittest
 import data_structures
 
 
 class TestLinkedList(unittest.TestCase):
-
     def test_add(self):
         """
         Test the add function
@@ -20,12 +17,13 @@ class TestLinkedList(unittest.TestCase):
         # latest node will be used to track the values of the added nodes
         latest_node = linked_list.root
 
-        # first check that a new value was added when no items were already in the list
+        # first check that a new value was added
+        # when no items were already in the list
         self.assertEqual(latest_node.value, 5)
 
         # add a second piece of data to the linked list
-        # this is to test that items are added properly to the list when another item
-        # is in it
+        # this is to test that items are added properly
+        # to the list when another item is in it
         linked_list.add(7)
         latest_node = latest_node.next
         self.assertEqual(latest_node.value, 7)
@@ -64,7 +62,8 @@ class TestLinkedList(unittest.TestCase):
         linked_list.add(1)
         self.assertEqual(linked_list.end.value, 1)
 
-        # last check the end node changes when more than one values are in the linked list
+        # last check the end node changes
+        # when more than one values are in the linked list
         linked_list.add(2)
         self.assertEqual(linked_list.end.value, 2)
 

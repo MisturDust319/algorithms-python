@@ -1,8 +1,5 @@
 import unittest
 
-# import the data structures
-import data_structures
-
 import lists.sum_of_three_values
 
 class ClassTestSumOfThreeValues(unittest.TestCase):
