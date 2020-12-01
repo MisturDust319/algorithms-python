@@ -14,9 +14,10 @@ def test_find_all_strings():
             ['r', 'r', 'e'],
             ['t', 'o', 'n']]
 
-    dictionary = {"cat", "cater", "cartoon", "toon", "moon", "not", "tone", "apple", "ton", "art"}
+    dictionary = {"cat", "cater", "cartoon", "toon", "moon",
+                  "not", "tone", "apple", "ton", "art"}
 
     result = find_all_strings(grid, dictionary)
-    expected_result = ["not", "cat", "art", "cater", "ton", "eat"]
+    expected_result = {"not", "cat", "art", "cater", "ton", "tone"}
 
-    assert all([ result == expected for result, expected in zip(result, expected_result)]) is True
+    assert result == expected_result
