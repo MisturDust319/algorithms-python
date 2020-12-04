@@ -29,6 +29,7 @@ class TestBreadthFirstTraversal(unittest.TestCase):
         # compare the results
         self.assertListEqual(results, expected_results)
 
+
 class TestDisjointSet(unittest.TestCase):
     def setUp(self):
         """
@@ -70,7 +71,6 @@ class TestDisjointSet(unittest.TestCase):
         for id, parent_id in {0: 2, 1: 2, 2: 3, 3: 3}.items():
             self.assertEqual(self.disjoint_set.tree[id].parent.id, parent_id)
 
-
     def test_union(self):
         """
         test that the union method is working
@@ -92,9 +92,11 @@ class TestDisjointSet(unittest.TestCase):
         self.assertEqual(self.disjoint_set.tree[1].rank, 1)
         self.assertEqual(self.disjoint_set.tree[0].rank, 0)
 
+
 class TestBFS(unittest.TestCase):
     def setUp(self):
         self.graph = graphs.dfs.GraphDFS()
+
     def tearDown(self):
         del self.graph
 
@@ -139,6 +141,7 @@ class TestTopologicalSort(unittest.TestCase):
 
         self.assertCountEqual(expected_results, sort_results)
 
+
 class TestKruskalsAlgorithm(unittest.TestCase):
     def setUp(self):
         self.graph = graphs.kruskals_algorithm.KruskalsAlgorithmGraph()
@@ -172,7 +175,6 @@ class TestKruskalsAlgorithm(unittest.TestCase):
         mst_weight_sum = sum([edge[2] for edge in mst])
 
         self.assertEqual(expected_mst_sum, expected_mst_sum)
-
 
 
 if __name__ == '__main__':

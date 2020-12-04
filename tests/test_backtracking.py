@@ -21,3 +21,4 @@ def test_find_all_strings():
     expected_result = {"not", "cat", "art", "cater", "ton", "tone"}
 
     assert result == expected_result
+
