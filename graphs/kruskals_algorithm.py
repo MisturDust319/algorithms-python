@@ -10,43 +10,71 @@ from data_structures import GraphAdjacencySet
 from graphs.disjoint_set_structure import DisjointSet
 
 
-class KruskalsAlgorithmGraph(GraphAdjacencySet):
-    def __init__(self):
-        super().__init__(0)
+# class KruskalsAlgorithmGraph(GraphAdjacencySet):
+#     def __init__(self):
+#         super().__init__(0)
+#
+#     def getMST(self):
+#         # create a disjoint set
+#         disjoint_set = DisjointSet()
+#         # populate the disjoint set, one item for each item in the graph
+#         for i in range(len(self)):
+#             disjoint_set.add(i)
+#
+#         # create a list of edges
+#         edge_list = []
+#         for u, adjacencies in self.adjacencies.items():
+#             for v, w in adjacencies.items():
+#                 edge_list.append((u, v, w))
+#         # then sort the edges
+#         edge_list = sorted(edge_list, key=lambda edge: edge[2], reverse=True)
+#
+#         results = []
+#         while (len(results) < self.cardinality - 1
+#                 and edge_list):
+#             # grab the current edge
+#             current_edge = edge_list.pop()
+#             u, v, w = current_edge
+#
+#             # find u and v's parents
+#             u_parent = disjoint_set.find(u)
+#             v_parent = disjoint_set.find(v)
+#
+#             # if u and v don't share parents, they aren't in the same component
+#             # this means they don't form a cycle and can be added to the MST
+#             if u_parent.id is not v_parent.id:
+#                 # add the edge to the MST
+#                 results.append(current_edge)
+#                 # join the edge to the same component
+#                 # this is used to track which vertices have already been added to the MST
+#                 disjoint_set.union(u, v)
+#
+#         return results
 
-    def getMST(self):
-        # create a disjoint set
-        disjoint_set = DisjointSet()
-        # populate the disjoint set, one item for each item in the graph
-        for i in range(len(self)):
-            disjoint_set.add(i)
 
-        # create a list of edges
-        edge_list = []
-        for u, adjacencies in self.adjacencies.items():
-            for v, w in adjacencies.items():
-                edge_list.append((u, v, w))
-        # then sort the edges
-        edge_list = sorted(edge_list, key=lambda edge: edge[2], reverse=True)
+def get_mst_kruskal(graph):
+    # create and a disjoint set
+    # and populate it with all the vertices in the graph
+    disjoint_set = DisjointSet()
+    for i in range(len(graph)):
+        disjoint_set.add(i)
 
-        results = []
-        while (len(results) < self.cardinality - 1
-                and edge_list):
-            # grab the current edge
-            current_edge = edge_list.pop()
-            u, v, w = current_edge
+    # create a list of edges and sort it in descending order
+    edges = [(u, v, w) for u, adjacencies in graph.adjacencies.items()
+             for v, w in adjacencies.items()]
 
-            # find u and v's parents
-            u_parent = disjoint_set.find(u)
-            v_parent = disjoint_set.find(v)
+    # iterate over the edge list
+    # we first sort the edge list by ascending weight
+    for edge in sorted(edges, key=lambda edge: edge[2], reverse=True):
+        # isolate the components of this edge
+        u, v, w = edge
 
-            # if u and v don't share parents, they aren't in the same component
-            # this means they don't form a cycle and can be added to the MST
-            if u_parent.id is not v_parent.id:
-                # add the edge to the MST
-                results.append(current_edge)
-                # join the edge to the same component
-                # this is used to track which vertices have already been added to the MST
-                disjoint_set.union(u, v)
+        # for each vertex in the edge,
+        # find the parent in each set
+        u_parent = disjoint_set.find(u)
+        v_parent = disjoint_set.find(v)
 
-        return results
+        if u_parent.id != v_parent.id:
+            yield edge
+
+            disjoint_set.union(u, v)
