@@ -123,9 +123,19 @@ class GraphAdjacencySet:
                 search(v)
 
 
+def get_graph_weight_sum(graph):
+    total_weight = 0
+    for u, adjacencies in graph.adjacencies.items():
+        for v, w in adjacencies.items():
+            total_weight += w
+
+    return total_weight
+
+
 class LinkedListNode:
     def __init__(self, value):
         self.value, self.next = value, None
+
 
 class LinkedList:
     def __init__(self, iterable = None):
@@ -143,7 +153,7 @@ class LinkedList:
 
                 # while there is still new items to iterate over...
                 for next_item in iterator:
-                    #...grab the next item from the iterator
+                    # ...grab the next item from the iterator
                     # and set it as the next item in the linked list
                     index_node.next = LinkedListNode(next_item)
                     # while you're at it, set the newest node to be the end node
