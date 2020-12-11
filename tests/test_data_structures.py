@@ -1,6 +1,7 @@
 import unittest
-import data_structures
+import pytest
 
+import data_structures
 
 class TestLinkedList(unittest.TestCase):
     def test_add(self):
@@ -66,6 +67,35 @@ class TestLinkedList(unittest.TestCase):
         # when more than one values are in the linked list
         linked_list.add(2)
         self.assertEqual(linked_list.end.value, 2)
+
+
+def test_get_graph_weight_sum():
+    graph = data_structures.GraphAdjacencySet()
+
+    # test an empty graph
+    assert data_structures.get_graph_weight_sum(graph) == 0
+
+    # try it with an unweighted graph
+    # this will equal the cardinality of the graph - 1
+    graph.addEdge(0, 1)
+    graph.addEdge(1, 2)
+    graph.addEdge(2, 3)
+
+    assert data_structures.get_graph_weight_sum(graph) == len(graph) - 1
+
+    # create a new graph
+    del graph
+    graph = data_structures.GraphAdjacencySet()
+
+    # test with weighted graph
+    graph.addEdge(0, 1, 2)
+    graph.addEdge(1, 2, 2)
+    graph.addEdge(2, 3, 2)
+    assert data_structures.get_graph_weight_sum(graph) == 6
+
+    # add a cycle then test again
+    graph.addEdge(3, 0, 2)
+    assert data_structures.get_graph_weight_sum(graph) == 8
 
 
 if __name__ == '__main__':

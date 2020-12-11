@@ -2,6 +2,7 @@ import unittest
 
 import data_structures
 from data_structures import GraphAdjacencySet
+from data_structures import get_graph_weight_sum
 import graphs.breadth_first_traversal
 import graphs.disjoint_set_structure
 import graphs.dfs
@@ -150,42 +151,6 @@ class TestTopologicalSort(unittest.TestCase):
         self.assertCountEqual(expected_results, sort_results)
 
 
-# class TestKruskalsAlgorithm(unittest.TestCase):
-#     def setUp(self):
-#         self.graph = graphs.kruskals_algorithm.KruskalsAlgorithmGraph()
-#
-#     def tearDown(self):
-#         del self.graph
-#
-#     def test_getMST(self):
-#         # create and populate a graph
-#         graphs = GraphAdjacencySet()
-#         self.graph.addEdge(0, 1, 4)
-#         self.graph.addEdge(0, 2, 4)
-#         self.graph.addEdge(1, 2, 2)
-#         self.graph.addEdge(1, 0, 4)
-#         self.graph.addEdge(2, 0, 4)
-#         self.graph.addEdge(2, 1, 2)
-#         self.graph.addEdge(2, 3, 3)
-#         self.graph.addEdge(2, 5, 2)
-#         self.graph.addEdge(2, 4, 4)
-#         self.graph.addEdge(3, 2, 3)
-#         self.graph.addEdge(3, 4, 3)
-#         self.graph.addEdge(4, 2, 4)
-#         self.graph.addEdge(4, 3, 3)
-#         self.graph.addEdge(5, 2, 2)
-#         self.graph.addEdge(5, 4, 3)
-#
-#         # more than one MST can be generated from a data set
-#         # however, the sum of the weights will always be the same value
-#         expected_mst_sum = 14
-#
-#         mst = self.graph.getMST()
-#         # get the sum of the weights
-#         mst_weight_sum = sum([edge[2] for edge in mst])
-#
-#         self.assertEqual(expected_mst_sum, expected_mst_sum)
-
 def test_test_mst_kruskal():
     # create and init a graph struct
     graph = GraphAdjacencySet()
@@ -211,7 +176,7 @@ def test_test_mst_kruskal():
 
     mst = get_mst_kruskal(graph)
     # get the sum of the weights
-    mst_weight_sum = sum([edge[2] for edge in mst])
+    mst_weight_sum = get_graph_weight_sum(mst)
 
     # check that the sum is what we expect
     assert expected_mst_sum == expected_mst_sum
